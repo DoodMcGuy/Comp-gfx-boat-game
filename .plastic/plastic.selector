@@ -1,0 +1,4 @@
+repository "Comp gfx boat game@SeniorDrill@cloud"
+  path "/"
+    br "/main"
+    co "/main"
