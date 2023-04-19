@@ -27,7 +27,7 @@ public class EnemyComputer : MonoBehaviour
 
 	private void Awake()
     {
-		player = GameObject.Find("Boat").transform;
+		player = GameObject.Find("Longship").transform;
 		agent = GetComponent<NavMeshAgent>();
     }
 
