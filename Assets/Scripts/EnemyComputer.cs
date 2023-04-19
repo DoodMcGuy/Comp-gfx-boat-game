@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -12,33 +11,35 @@ public class EnemyComputer : MonoBehaviour
 
 	public LayerMask whatIsGround, whatIsPlayer;
 
-	public float health;
-
 	public Vector3 walkPoint;
 	bool walkPointSet;
 	public float walkPointRange;
 
 	public float timeBetweenAttacks;
-	bool alreadyAttacked;
+	bool alreadyAttacked = false;
 	public GameObject projectile;
 
 	public float sightRange, attackRange;
 	public bool playerInSightRange, playerInAttackRange;
 
+	public float lastDidSomething, pauseTime = 3f;
+
+
 	private void Awake()
     {
-		player = GameObject.Find("Boat").transform;
+		player = GameObject.Find("Finish Line Collider").transform;
 		agent = GetComponent<NavMeshAgent>();
     }
 
 	private void Update()
     {
+		if (Time.time < lastDidSomething + pauseTime) return;
 		playerInSightRange = Physics.CheckSphere(transform.position, sightRange, whatIsPlayer);
 		playerInAttackRange = Physics.CheckSphere(transform.position, attackRange, whatIsPlayer);
 
 		if (!playerInSightRange && !playerInAttackRange) Patrolling();
 		if (playerInSightRange && !playerInAttackRange) ChasePlayer();
-		if (!playerInSightRange && playerInAttackRange) AttackPlayer();
+		if (playerInSightRange && playerInAttackRange) AttackPlayer();
 
 	}
 
@@ -53,6 +54,8 @@ public class EnemyComputer : MonoBehaviour
 
 		if (distanceToWalkPoint.magnitude < 1f)
 			walkPointSet = false;
+
+		lastDidSomething = Time.time;
     }
 
     private void SearchWalkPoint()
@@ -67,25 +70,30 @@ public class EnemyComputer : MonoBehaviour
 	}
 
 	private void ChasePlayer()
-    {
-		agent.SetDestination(player.position);
-    }
+    { 
+		agent.SetDestination(player.position);	
+	}
 
 	private void AttackPlayer()
     {
 		agent.SetDestination(transform.position);
+
 		transform.LookAt(player);
 
-        if (!alreadyAttacked)
-        {
-
+		if (!alreadyAttacked)
+		{
+					
 			Rigidbody rb = Instantiate(projectile, transform.position, Quaternion.identity).GetComponent<Rigidbody>();
 			rb.AddForce(transform.forward * 32f, ForceMode.Impulse);
-			rb.AddForce(transform.forward * 8f, ForceMode.Impulse);
+			rb.AddForce(transform.up * 8f, ForceMode.Impulse);
+
+
 
 			alreadyAttacked = true;
-			Invoke(nameof(ResetAttack), timeBetweenAttacks);
-        }
+
+			Invoke("ResetAttack", timeBetweenAttacks);
+		}
+
     }
 
 	private void ResetAttack()
@@ -93,17 +101,6 @@ public class EnemyComputer : MonoBehaviour
 		alreadyAttacked = false;
     }
 
-	public void TakeDamage(int damage)
-    {
-		health -= damage;
-
-		if (health <= 0) Invoke(nameof(DestroyEnemy), 0.5f);
-    }
-
-	private void DestroyEnemy()
-    {
-		Destroy(gameObject);
-    }
 
 	private void OnDrawGizmosSelected()
     {
