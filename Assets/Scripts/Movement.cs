@@ -5,8 +5,9 @@ using UnityEngine;
 public class Movement : MonoBehaviour
 {
     public GameObject boat;
-    private Rigidbody body;
-    private float rotation = .14f; //will determine how strong angle of rotation is
+    public Rigidbody body;
+    public float speed = 5f;
+    public float turnSpeed = 1f;
     public float range = 5;
 
     // Start is called before the first frame update
@@ -16,20 +17,17 @@ public class Movement : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
-        
-        Ray ray = new Ray(transform.position, transform.TransformDirection(Vector3.forward * range));
-        Debug.DrawRay(transform.position, transform.TransformDirection(Vector3.forward * range));
 
         if(Input.GetKey(KeyCode.A))//A = rotate left
-            boat.transform.Rotate(0.0f, -rotation, 0.0f);
-        if(Input.GetKey(KeyCode.D))//D = rotate right
-            boat.transform.Rotate(0.0f, rotation, 0.0f);
-        if(Input.GetKey(KeyCode.W))//W = forward
-            boat.transform.Translate(Vector3.forward * (Time.deltaTime * 2));
+            body.AddTorque(transform.up * -turnSpeed, ForceMode.Force);
+        if (Input.GetKey(KeyCode.D))//D = rotate right
+            body.AddTorque(transform.up * turnSpeed, ForceMode.Force);
+        if (Input.GetKey(KeyCode.W))//W = forward
+            body.AddRelativeForce(Vector3.forward * speed,ForceMode.Force);
         if(Input.GetKey(KeyCode.S))//S = go backwards
-            boat.transform.Translate(Vector3.back * (Time.deltaTime * 2));
-        
+            body.AddRelativeForce(Vector3.back * speed, ForceMode.Force);
+
     }
 }
