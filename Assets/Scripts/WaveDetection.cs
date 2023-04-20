@@ -30,6 +30,6 @@ public class WaveDetection : MonoBehaviour
 
     public float WaveHeight(float i)
     {
-        return amp * Mathf.Sin(i / length + offset);
+        return amp * Mathf.Sin(i / length + offset) * Mathf.Sin(i / length + 2);
     }
 }
