@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Movement : MonoBehaviour
 {
@@ -8,12 +9,11 @@ public class Movement : MonoBehaviour
     private Rigidbody body;
     private float rotation = .14f; //will determine how strong angle of rotation is
     public float range = 5;
+    [SerializeField]
+    private Lap lapScript;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-
-    }
+    [SerializeField]
+    public GameObject gameOverScreen;
 
     // Update is called once per frame
     void Update()
@@ -31,5 +31,9 @@ public class Movement : MonoBehaviour
         if(Input.GetKey(KeyCode.S))//S = go backwards
             boat.transform.Translate(Vector3.back * (Time.deltaTime * 2));
         
+        if (lapScript.GetLapCount() >=4){
+            Debug.Log("Starting game over screen");
+            gameOverScreen.GetComponent<GameOverScreen>().Setup(lapScript.GetFastestTime());
+        }
     }
 }

@@ -56,7 +56,10 @@ public class OneWayCollider : MonoBehaviour
     }
 
     void OnTriggerEnter(Collider other){
-        Debug.Log("Entered trigger!");
+        GameObject collidedObject = other.gameObject;
+
+        if(collidedObject.tag == "Boat")
+            collidedObject.GetComponent<Lap>().LapTime();
     }
 
     void Update(){
