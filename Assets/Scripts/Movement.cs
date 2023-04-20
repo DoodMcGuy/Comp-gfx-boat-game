@@ -9,11 +9,12 @@ public class Movement : MonoBehaviour
     private Rigidbody body;
     private float rotation = .14f; //will determine how strong angle of rotation is
     public float range = 5;
-    [SerializeField]
-    private Lap lapScript;
 
     [SerializeField]
-    public Canvas gameOverScreen;
+    private Lap lapScript; //make sure to merge this
+
+    [SerializeField]
+    public Canvas gameOverScreen; //make sure to merge this
 
     // Update is called once per frame
     void Update(){
@@ -30,6 +31,7 @@ public class Movement : MonoBehaviour
         if(Input.GetKey(KeyCode.S))//S = go backwards
             boat.transform.Translate(Vector3.back * (Time.deltaTime * 2));
         
+        //merge this if statement
         if (lapScript.GetLapCount() >=4){
             gameOverScreen.GetComponent<GameOverScreen>().Setup(lapScript.GetFastestTime());
         }
