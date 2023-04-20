@@ -6,10 +6,11 @@ public class WaveDetection : MonoBehaviour
 {
     public static WaveDetection inst;
 
-    public float amp = 1f;
-    public float length = 2f;
-    public float speed = 1f;
+    public float amp = .2f;
+    public float length = .3f;
+    public float speed = .6f;
     public float offset = 0f;
+
 
     private void Awake()
     {

@@ -1,13 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+
 
 public class Movement : MonoBehaviour
 {
     public GameObject boat;
     public Rigidbody body;
     public float speed = .3f;
-    public float turnSpeed = .05f;
+    public float turnSpeed = .02f;
     public float range = 5;
     public GameObject sailUp;
     public GameObject sailDown;
@@ -19,6 +21,12 @@ public class Movement : MonoBehaviour
         Sail
     }
     BoatState boatState;
+
+    [SerializeField]
+    private Lap lapScript; 
+
+    [SerializeField]
+    public Canvas gameOverScreen; 
 
     private void Start()
     {
@@ -60,8 +68,10 @@ public class Movement : MonoBehaviour
             body.AddRelativeForce(Vector3.forward * speed, ForceMode.Force);
         if (Input.GetKey(KeyCode.S))//S = go backwards
             body.AddRelativeForce(Vector3.back * speed, ForceMode.Force);
-    }
-    void FixedUpdate()
-    {
+
+        if (lapScript.GetLapCount() >= 4)
+        {
+            gameOverScreen.GetComponent<GameOverScreen>().Setup(lapScript.GetFastestTime());
+        }
     }
 }

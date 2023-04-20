@@ -42,7 +42,7 @@ public class OneWayCollider : MonoBehaviour
                 float dot = Vector3.Dot(entry_direction, collisionDirection);
 
                 //dot product is negative if we're going the wrong way so prevent collision
-                if(dot < 0){
+                if(dot < 0.9){
                     Physics.IgnoreCollision(collider, other, false);
                 }else{
                     Physics.IgnoreCollision(collider, other, true);
@@ -56,7 +56,10 @@ public class OneWayCollider : MonoBehaviour
     }
 
     void OnTriggerEnter(Collider other){
-        Debug.Log("Entered trigger!");
+        GameObject collidedObject = other.gameObject;
+
+        if (collidedObject.tag == "Boat")
+            collidedObject.GetComponent<Lap>().LapTime();
     }
 
     void Update(){

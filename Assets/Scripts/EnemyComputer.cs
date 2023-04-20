@@ -27,7 +27,7 @@ public class EnemyComputer : MonoBehaviour
 
 	private void Awake()
     {
-		player = GameObject.Find("Finish Line Collider").transform;
+		player = GameObject.Find("Enemy Tracker").transform;
 		agent = GetComponent<NavMeshAgent>();
     }
 
