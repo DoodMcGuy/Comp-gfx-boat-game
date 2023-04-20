@@ -13,11 +13,10 @@ public class Movement : MonoBehaviour
     private Lap lapScript;
 
     [SerializeField]
-    public GameObject gameOverScreen;
+    public Canvas gameOverScreen;
 
     // Update is called once per frame
-    void Update()
-    {
+    void Update(){
         
         Ray ray = new Ray(transform.position, transform.TransformDirection(Vector3.forward * range));
         Debug.DrawRay(transform.position, transform.TransformDirection(Vector3.forward * range));
@@ -32,7 +31,6 @@ public class Movement : MonoBehaviour
             boat.transform.Translate(Vector3.back * (Time.deltaTime * 2));
         
         if (lapScript.GetLapCount() >=4){
-            Debug.Log("Starting game over screen");
             gameOverScreen.GetComponent<GameOverScreen>().Setup(lapScript.GetFastestTime());
         }
     }

@@ -31,6 +31,7 @@ public class Lap : MonoBehaviour
             if(minTime > deltaTime)
                 minTime = deltaTime;
         }
+
         return "Fastest time was: " + deltaTime.Minutes + ":" + deltaTime.Seconds + ":" + deltaTime.Milliseconds;
 
     }

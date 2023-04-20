@@ -10,7 +10,7 @@ public class GameOverScreen : MonoBehaviour{
 
    public void Setup(string time){
         gameObject.SetActive(true);
-        fastestTime.text = "Your fastest time was: " + time;
+        //fastestTime.text = "Your fastest time was: " + time;
    }
 
     public void RestartButton(){
