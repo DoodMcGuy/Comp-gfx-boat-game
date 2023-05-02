@@ -5,6 +5,7 @@ using UnityEngine;
 public class Lap : MonoBehaviour
 {
     private int lapCount =0;
+    private bool lapFlag = false;
     private List<System.DateTime> lapTimes = new List<System.DateTime>();
 
     public void LapTime(){
@@ -18,6 +19,14 @@ public class Lap : MonoBehaviour
 
     public int GetLapCount(){
         return lapCount;
+    }
+
+    public void switchLapFlag(){
+        lapFlag = !lapFlag;
+    }
+
+    public bool getLapFlag(){
+        return lapFlag;
     }
 
     public string GetFastestTime(){

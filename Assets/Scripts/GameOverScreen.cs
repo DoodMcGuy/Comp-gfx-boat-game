@@ -9,17 +9,22 @@ public class GameOverScreen : MonoBehaviour{
 
     [SerializeField] public Text fastestTime = null;
     [SerializeField] public Button restartButton = null;
+    [SerializeField] public Button quitButton = null;
 
-   public void Setup(string time){
+    public void Setup(string time){
         gameObject.SetActive(true);
-        
+            
         if(fastestTime != null)
             fastestTime.text = "Your fastest time was: " + time;
-   }
+    }
 
-   public void RestartGame(){
+    public void RestartGame(){
         Debug.Log("Clicked");
         SceneManager.LoadScene("BoatScene");
+    }
+
+    public void QuitGame(){
+        Application.Quit();
     }
 
 }
