@@ -15,6 +15,8 @@ public class Movement : MonoBehaviour
     public GameObject sailDown;
     public GameObject oarsRight;
     public GameObject oarsLeft;
+    public Wind wind;
+
     enum BoatState
     {
         Oars,
@@ -50,7 +52,7 @@ public class Movement : MonoBehaviour
             sailDown.SetActive(true);
             oarsLeft.SetActive(false);
             oarsRight.SetActive(false);
-            speed = 1f;
+            speed = .8f * wind.speed_mod;
         }
         if (Input.GetKeyDown(KeyCode.Space))
         {
