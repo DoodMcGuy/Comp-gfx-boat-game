@@ -10,7 +10,6 @@ public class OneWayCollider : MonoBehaviour
     
     void Awake(){
         collider = GetComponent<BoxCollider>();
-<<<<<<< Updated upstream
         collider.isTrigger = false;
 
         //set up the collider that will check we're moving in the right direction
@@ -48,18 +47,15 @@ public class OneWayCollider : MonoBehaviour
     //take lap time when player leaves the trigger
     void OnTriggerExit(Collider other){
         Debug.Log("Left trigger!");
-=======
         collider.isTrigger = true;
->>>>>>> Stashed changes
     }
 
     void OnTriggerEnter(Collider other){
         GameObject collidedObject = other.gameObject;
-<<<<<<< Updated upstream
 
         if(collidedObject.tag == "Boat")
             collidedObject.GetComponent<Lap>().LapTime();
-=======
+
         Lap collidedObjectLapScript = null;
         if (collidedObject.tag == "Boat")
             collidedObjectLapScript = collidedObject.GetComponent<Lap>();
@@ -69,7 +65,6 @@ public class OneWayCollider : MonoBehaviour
         if(collidedObjectLapScript.getLapFlag() == true)
             collidedObjectLapScript.LapTime();
 
->>>>>>> Stashed changes
     }
 
     void OnTrigerStay(Collider other){
