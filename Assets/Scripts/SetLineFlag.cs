@@ -4,15 +4,17 @@ using UnityEngine;
 
 public class SetLineFlag : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    void OnTriggerEnter(Collider other)
     {
-        
-    }
+        GameObject collidedObject = other.gameObject;
+        Lap collidedObjectScript = null;
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+        if (collidedObject.tag == "Boat")
+            collidedObjectScript = collidedObject.GetComponent<Lap>();
+        else
+            return;
+
+        if (collidedObjectScript.getLapFlag() == false)
+            collidedObjectScript.switchLapFlag();
     }
 }
